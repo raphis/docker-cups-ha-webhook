@@ -8,7 +8,7 @@ The main goal of this project/repository is to turn on a smart power-switch via 
 2. Copy configuration files to your config file directory (e.g. /usr/share/cups-ha-webhook)
 3. Pull the docker container from the repository
 ```
-docker pull 36451bb9-2a6f-4175-8639-1a2fabae7267
+docker pull raphithom/cups-ha-webhook:latest
 ```
 4. Run the container with the corresponding options
 ```
