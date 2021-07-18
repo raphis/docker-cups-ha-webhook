@@ -18,16 +18,15 @@ FROM base as mods
 COPY src/trigger-printer-webhook.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/trigger-printer-webhook.sh
 
-RUN echo "[HP_LaserJet_M276nw]" >> /etc/cups/tea4cups.conf
-RUN echo "prehook_poweron_printer : /usr/local/bin/trigger-printer-webhook.sh" >> /etc/cups/tea4cups.conf
-
 # Configure the service's to be reachable
 RUN /usr/sbin/cupsd \
   && while [ ! -f /var/run/cups/cupsd.pid ]; do sleep 1; done \
   && cupsctl --remote-admin --remote-any --share-printers \
   && kill $(cat /var/run/cups/cupsd.pid)
 
-COPY src/printers.conf /etc/cups/printers.conf
+RUN ln -s /config/printers.conf /etc/cups/printers.conf
+RUN rm -f /etc/cups/tea4cups.conf
+RUN ln -s /config/tea4cups.conf /etc/cups/tea4cups.conf
 
 EXPOSE 631/tcp
 

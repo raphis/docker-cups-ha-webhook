@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# trigger HA webhook
-curl -X POST http://192.168.1.253:8123/api/webhook/hp-ljp-m276nw
+# source config file
+. /config/config.sh
 
-# wait for 50s to bootup
-sleep 50
+# trigger HA webhook
+curl -X POST $WEBHOOK_URL
+
+# wait X-seconds for printer bootup
+sleep $PRINTER_BOOTTIME

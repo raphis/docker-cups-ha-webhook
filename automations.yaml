@@ -1,0 +1,14 @@
+alias: Turn on Printer when webhook is called
+trigger:
+  - platform: webhook
+    webhook_id: hp-ljp-m276nw
+condition:
+  - condition: state
+    entity_id: switch.hp_printer
+    state: 'off'
+action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.hp_printer
+mode: single
+
